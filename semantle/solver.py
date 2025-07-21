@@ -4,7 +4,7 @@ from semantle.semantle import Semantle
 class Solver:
     def __init__(self, semantle: Semantle):
         self.semantle = semantle
-        self.wv = semantle.model.wv
+        self.wv = semantle.model
         self.guesses = {"elementary": {}, "green": {}, "volume": {}}
         self.rounding_value = ".2f"
 
