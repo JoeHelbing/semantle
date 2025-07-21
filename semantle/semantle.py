@@ -87,14 +87,3 @@ class Semantle:
         Sets the game state to end if the user guesses the correct word.
         """
         self.endgame = current_guess == self.word_of_the_day
-
-
-if __name__ == "__main__":
-    print("loading...")
-    ct = time.time()
-    semantle = Semantle()
-    ft = time.time()
-    print(f"Loaded in {ft - ct}")
-    print(f"Today's word is: {semantle.word_of_the_day}")
-    while not semantle.endgame:
-        semantle.take_turn()

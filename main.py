@@ -23,6 +23,8 @@ def main():
     print("Identifying solution...")
     solution = solver.identify_solution()
 
+    print(f"Actual word of the day: {semantle.word_of_the_day}")
+
     if solution:
         print(f"{solution} is the solution to today's Semantle")
     else:
