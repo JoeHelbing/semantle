@@ -1,36 +1,12 @@
 import time
 import os
 import gensim
-import csv
-
+import gensim.downloader as api
 ROOT_DIR = os.path.abspath(".")
-
-
-class MyCorpus:
-    """An iterator that yields sentences (lists of str)."""
-
-    def __iter__(self):
-        corpus_path = ROOT_DIR + "/semantle/data/simpsons_script_lines.csv"
-        with open(corpus_path, newline="") as csvfile:
-            reader = csv.DictReader(csvfile, delimiter=",", quotechar='"')
-            for row in reader:
-                yield (row["normalized_text"].split())
-
-
 class Semantle:
     def __init__(self):
-        # TODO: Figure out how to use GoogleNews300 model
-        # When loaded using gensim.downloader.load('word2vec-google-news-300') the model we get out is a KeyedVectors object, which doesn't work the same as a Word2Vec object
-        if not os.path.exists(ROOT_DIR + "/semantle/data/simpsons.model"):
-            self.sentences = MyCorpus()
-            self.model = gensim.models.Word2Vec(
-                sentences=self.sentences, vector_size=300, min_count=5
-            )
-            self.model.save(ROOT_DIR + "/semantle/data/simpsons.model")
-        else:
-            self.model = gensim.models.Word2Vec.load(
-                ROOT_DIR + "/semantle/data/simpsons.model"
-            )
+        """Load the Google News Word2Vec model."""
+        self.model = api.load("word2vec-google-news-300")
 
         self.common_word_list = self.get_common_word_list()
         self.word_of_the_day = "bart"
@@ -91,7 +67,7 @@ class Semantle:
         is in the vocabulary of the game model.
         """
         try:
-            similarity_of_current_guess = self.model.wv.similarity(
+            similarity_of_current_guess = self.model.similarity(
                 guess, self.word_of_the_day
             )
             return similarity_of_current_guess

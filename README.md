@@ -1,6 +1,8 @@
 # Semantle
 
-This is a recreation of the game [Semantle](semantle.com) in Python and an accompanying solver. Semantle is a word guessing game where the user attempts to guess a word using the [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity) of their most recent guess to the target word. 
+This is a recreation of the game [Semantle](semantle.com) in Python and an accompanying solver. Semantle is a word guessing game where the user attempts to guess a word using the [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity) of their most recent guess to the target word.
+
+The application now loads the pre-trained `word2vec-google-news-300` model via `gensim.downloader`, replacing the older Simpsons training data.
 
 ## The Solver
 
