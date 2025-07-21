@@ -6,7 +6,15 @@ ROOT_DIR = os.path.abspath(".")
 class Semantle:
     def __init__(self):
         """Load the Google News Word2Vec model."""
-        self.model = api.load("word2vec-google-news-300")
+        model_name = "word2vec-google-news-300"
+        model_path = api.load(model_name, return_path=True)
+        if not os.path.exists(model_path):
+            print(
+                f"Downloading {model_name} (~1.6GB). This may take a few minutes..."
+            )
+        else:
+            print(f"Using cached {model_name} from {model_path}")
+        self.model = api.load(model_name)
 
         self.common_word_list = self.get_common_word_list()
         self.word_of_the_day = "bart"
@@ -87,5 +95,6 @@ if __name__ == "__main__":
     semantle = Semantle()
     ft = time.time()
     print(f"Loaded in {ft - ct}")
+    print(f"Today's word is: {semantle.word_of_the_day}")
     while not semantle.endgame:
         semantle.take_turn()
